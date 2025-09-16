@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuck Norris Jokes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #ff9800;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+        #joke {
+            margin-top: 25px;
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chuck Norris Jokes</h1>
+    <button id="getJoke">Obtener Chiste</button>
+    <div id="joke"></div>
+    <script>
+        let jokeDiv = document.getElementById('joke');
+        let getJokeBtn = document.getElementById('getJoke');
+        function fetchJoke() {
+            return fetch('https://api.chucknorris.io/jokes/random')
+                .then(response => response.json())
+                .then(data => {
+                    jokeDiv.innerHTML = `<p>${data.value}</p>`;
+                    return data;
+                })
+                .catch(error => {
+                    jokeDiv.innerHTML = '<p>Error al cargar el chiste</p>';
+                    console.error('Error:', error);
+                });
+        }
+        getJokeBtn.addEventListener('click', fetchJoke);
+    </script>
+</body>
+</html>
